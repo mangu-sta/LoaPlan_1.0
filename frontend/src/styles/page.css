@@ -1,0 +1,65 @@
+.page-container {
+  padding: 2rem;
+  text-align: center;
+}
+.page-container input,
+.page-container button {
+  margin: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+button {
+  background: #f9c94e;
+  border: none;
+  cursor: pointer;
+}
+button:hover {
+  background: #fbc02d;
+}
+
+/* ===============================
+   ⚔️ 콘텐츠 정보 카드 레이아웃
+================================= */
+.content-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1.2rem;
+  margin-top: 2rem;
+  padding: 1rem 0;
+}
+
+.content-card {
+  background: var(--card-bg, #fff8e1);
+  border: 2px solid #fbc02d;
+  border-radius: 12px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  padding: 1.5rem 0.8rem;
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+
+.content-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.15);
+  background: #ffe98a;
+}
+
+.content-card h3 {
+  font-size: 1.3rem;
+  margin-bottom: 0.4rem;
+  color: #a67700;
+}
+
+.content-card p {
+  font-size: 0.95rem;
+  color: #444;
+  margin: 0;
+}
+
+.page-desc {
+  color: #777;
+  font-size: 0.9rem;
+  margin-top: -0.5rem;
+}

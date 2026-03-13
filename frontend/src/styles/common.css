@@ -1,0 +1,453 @@
+/* 전역 보정 */
+html {
+    box-sizing: border-box;
+    scrollbar-gutter: stable;
+
+}
+*, *::before, *::after { box-sizing: inherit; }
+
+/* ===============================
+       🟡 공용 레이아웃 / 헤더 / 전역
+    ================================= */
+
+    /* ===== 라이트 / 다크 모드 변수 ===== */
+    :root {
+        --bg-color: #FAF6EB;
+        --text-color: #222;
+        --header-bg: #F9C94E;
+        --card-bg: #FFF8E1;
+        --hamburger-bg: #333;
+        --block-bg: #FFF8E1;
+        --block-border: #FBC02D;
+        --block-h2: #A67700;
+        --block-p: #555;
+    }
+
+    [data-theme="dark"] {
+        --bg-color: #1e1e1e;
+        --text-color: #EEE;
+        --header-bg: #333;
+        --card-bg: #2a2a2a;
+        --hamburger-bg: #F9C94E;
+        --block-h2: #F9C94E;
+        --block-bg: #2B2B2B;
+        --block-p: #EEE;
+    }
+
+    /* ===== 기본 설정 ===== */
+    body {
+        font-family: "Pretendard", sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        margin: 0;
+        padding-top: 60px;
+        transition: all 0.3s ease;
+        overflow-y: scroll; /* ✅ 항상 스크롤바 표시 (밀림 방지 핵심) */
+
+    }
+    /* ✅ 기본(PC)에서는 닫기 버튼 숨김 */
+    .sidebar-close-btn {
+        display: none;
+    }
+
+    /* ===============================
+       🧭 헤더 (공통)
+    ================================= */
+    .main-header {
+        position: fixed;
+        top: 0; left: 0; right: 0;
+        min-height: 85px;
+        background: var(--header-bg);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 20px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        z-index: 1000;
+    }
+
+    /* 버튼 스타일 */
+    .theme-toggle {
+        border: none;
+        background: #fff8e1;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 1rem;
+        padding: 3px 6px;
+        transition: background 0.2s ease, transform 0.2s ease;
+    }
+    .theme-toggle:hover {
+        background: #fff2b8;
+        transform: scale(1.1);
+    }
+
+    /* 로고 */
+    .logo {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+    }
+    .logo-img {
+        height: 36px;
+        width: auto;
+        object-fit: contain;
+        transition: opacity 0.2s ease;
+    }
+    .logo-img:hover {
+        opacity: 0.85;
+    }
+
+    /* ===============================
+       📋 메뉴 (데스크탑)
+    ================================= */
+    .menu {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 1;
+        gap: 1.2rem;
+        transition: all 0.3s ease;
+    }
+    .menu a {
+        text-decoration: none;
+        color: var(--hamburger-bg);
+        font-weight: 500;
+        padding: 6px 10px;
+        border-radius: 6px;
+        transition: background 0.2s;
+    }
+    .menu a:hover {
+        background: #ffe89a;
+        color: #7b5e00;
+    }
+
+    /* ===============================
+       👤 사용자 메뉴 (PC 전용)
+    ================================= */
+    .user-menu {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 6px;
+    }
+    .user-menu button {
+        border: none;
+        background: #fff6d2;
+        padding: 6px 12px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 500;
+    }
+    .user-menu button:hover {
+        background: #fff2b8;
+    }
+
+    /* ===============================
+       🍔 햄버거 & 오버레이
+    ================================= */
+    .hamburger {
+        display: none;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 4px;
+    }
+    .hamburger svg {
+        width: 26px;
+        height: 26px;
+        fill: var(--hamburger-bg);
+    }
+
+    .menu-overlay {
+        display: none;
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(0, 0, 0, 0.45);
+        backdrop-filter: blur(2px);
+        z-index: 900;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    .menu-overlay.active {
+        display: block;
+        opacity: 1;
+    }
+
+    /* ===============================
+       🔍 검색창 (공통 스타일)
+    ================================= */
+    .search-box {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 6px;
+        background: #fff8e1;
+        border: 1.5px solid #f9a825;
+        border-radius: 8px;
+        padding: 2px 8px;
+        min-width: 160px;
+        max-width: 180px;
+        box-sizing: border-box;
+        transition: box-shadow 0.2s ease, transform 0.2s ease;
+    }
+    .search-box:hover {
+        box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    }
+    .search-box input {
+        flex: 1;
+        min-width: 0;
+        border: none;
+        background: transparent;
+        outline: none;
+        padding: 4px 2px;
+        font-size: 0.9rem;
+        color: #333;
+    }
+    .search-box button {
+        flex-shrink: 0;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .user-actions {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 8px;
+    }
+
+    /* ===============================
+       📱 반응형 (1080px 이하)
+    ================================= */
+    @media (max-width: 1080px) {
+
+        /* 헤더 레이아웃 재구성 */
+        .main-header {
+            display: grid;
+            grid-template-columns: 60px 1fr 60px;
+            align-items: center;
+            height: 60px;
+            padding: 0 12px;
+        }
+
+        /* 햄버거 버튼 표시 */
+        .hamburger {
+            display: block;
+            grid-column: 1;
+            justify-self: start;
+            z-index: 1001;
+        }
+
+        /* 중앙 로고 */
+        .logo {
+            grid-column: 2;
+            justify-self: center;
+            font-size: 1rem;
+        }
+
+        /* 🌗 PC용 user-menu는 숨김 */
+        .user-menu {
+            display: none !important;
+        }
+
+        /* 📂 메뉴 → 사이드바 전환 */
+        .menu {
+            position: fixed;
+            top: 0;
+            left: -270px;
+            width: 240px;
+            height: 100dvh;
+            background: var(--card-bg);
+            box-shadow: 4px 0 12px rgba(0, 0, 0, 0.25);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 80px 16px 16px;
+            gap: 12px;
+            transition: left 0.35s ease;
+            z-index: 1100;
+            border-top-right-radius: 14px;
+            border-bottom-right-radius: 14px;
+
+            /* ✅ 추가 */
+            overflow-y: auto;              /* ⚠️ 사이드바 자체 스크롤 */
+            -webkit-overflow-scrolling: touch;
+            min-height: 0;                 /* ⚠️ flex 스크롤 버그 방지 */
+        }
+        .menu.open {
+            left: 0;
+        }
+
+        /* 닫기 버튼 */
+        .sidebar-close-btn {
+            display: block;
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            font-size: 1.3rem;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            color: var(--text-color);
+            opacity: 0.8;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+        .sidebar-close-btn:hover {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        /* 사이드바용 테마 토글 */
+        .sidebar-toggle {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            background: var(--header-bg);
+            color: var(--text-color);
+            border: none;
+            border-radius: 8px;
+            width: 36px;
+            height: 36px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background 0.25s ease, transform 0.2s ease;
+        }
+        .sidebar-toggle:hover {
+            transform: rotate(10deg);
+        }
+
+        /* 메뉴 항목 */
+        .menu a {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            border-radius: 10px;
+            text-decoration: none;
+            color: var(--text-color);
+            background: rgba(255, 255, 255, 0.05);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
+        }
+        .menu a:hover {
+            background: rgba(249, 201, 78, 0.25);
+            transform: translateX(4px);
+        }
+
+        .menu .icon {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* 오버레이 */
+        .menu-overlay.active {
+            display: block;
+            opacity: 1;
+            background: rgba(0, 0, 0, 0.55);
+            backdrop-filter: blur(2px);
+        }
+
+        body.menu-open {
+            overflow: hidden;
+        }
+
+        /* =========================
+           📦 사이드바 하단 (검색 + 로그인)
+        ========================== */
+        .sidebar-footer {
+
+            margin-top: auto;
+            width: 100%;
+            padding: 20px 12px;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .sidebar-footer .search-box {
+            width: 100%;
+            background: var(--card-bg);
+            border: 1.5px solid var(--block-border);
+            border-radius: 10px;
+            padding: 6px 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            transition: all 0.25s ease;
+        }
+        .sidebar-footer .search-box:hover {
+            transform: scale(1.02);
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+        }
+        .sidebar-footer .search-box input {
+            flex: 1;
+            border: none;
+            background: transparent;
+            color: var(--text-color);
+            outline: none;
+            font-size: 0.9rem;
+        }
+        .sidebar-footer .search-box button {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            color: var(--text-color);
+        }
+
+        .sidebar-footer .sidebar-login {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+        .sidebar-footer .sidebar-login button {
+            flex: 1;
+            background: var(--header-bg);
+            color: var(--text-color);
+            border: none;
+            border-radius: 8px;
+            padding: 8px 0;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+        .sidebar-footer .sidebar-login button:hover {
+            background: #fddc77;
+            transform: translateY(-1px);
+        }
+    }
+
+    /* ===============================
+       🌙 테마 토글 표시 제어
+    ================================= */
+    #themeToggleSidebar {
+        display: none;
+    }
+    @media (max-width: 1080px) {
+        #themeToggle {
+            display: none;
+        }
+        #themeToggleSidebar {
+            display: block;
+        }
+    }
+
+    /* ===============================
+       🖥️ PC 버전에서 사이드바 푸터 숨김
+    ================================= */
+    @media (min-width: 1081px) {
+        .sidebar-footer {
+            display: none !important;
+        }
+    }

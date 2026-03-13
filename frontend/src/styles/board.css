@@ -1,0 +1,783 @@
+/* ===============================
+   📌 게시판 카테고리
+================================ */
+.category-bar {
+  margin-bottom: 1rem;
+}
+
+.category-bar button {
+  margin: 0 6px;
+  padding: 6px 12px;
+  border: 2px solid #fbc02d;
+  background: #fff8e1;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.category-bar button.active {
+  background: #f9c94e;
+  color: #5a4300;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* ===============================
+   📌 게시글 리스트
+================================ */
+.post-list {
+  margin-top: 1rem;
+}
+
+.post-card {
+  border: 1px solid #f9c94e;
+  padding: 14px;
+  margin: 14px 0;
+  border-radius: 10px;
+  background: var(--card-bg);
+  cursor: pointer;
+}
+
+.post-card:hover {
+  background: #fff3cb;
+}
+
+.post-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.post-profile {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.post-top-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.post-nickname-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+}
+
+.post-dot {
+  color: #777;
+}
+
+.post-date {
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.post-content {
+  margin-top: 12px;
+  white-space: pre-line;
+}
+
+.post-img-box {
+  margin-top: 10px;
+}
+
+.post-img {
+  width: 100%;
+  border-radius: 8px;
+  margin-top: 8px;
+}
+
+.post-meta {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-top: 12px;
+  color: #555;
+  font-size: 0.9rem;
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.meta-icon {
+  width: 18px;
+  height: 18px;
+  opacity: 0.85;
+}
+
+/* ===============================
+   📌 글쓰기 버튼
+================================ */
+.board-controls {
+  margin-bottom: 1rem;
+}
+
+/* ===============================
+   📌 글쓰기 모달
+================================ */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.modal {
+  width: 90%;
+  max-width: 460px;
+  background: var(--card-bg);
+  padding: 1rem;
+  border-radius: 10px;
+  border: 2px solid var(--block-border);
+}
+
+.modal h3 {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+
+/* 입력폼 */
+.title-input,
+.content-input {
+  width: 100%;
+  margin: 6px 0;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #e4c568;
+  background: #fffdf5;
+}
+
+.content-input {
+  height: 120px;
+  resize: none;
+}
+
+.modal-buttons {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.modal-buttons button {
+  padding: 6px 12px;
+  border-radius: 6px;
+  background: #f9c94e;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.modal-buttons button:hover {
+  background: #ffd369;
+}
+
+/* 이미지 업로드 */
+.image-upload-btn {
+  display: inline-block;
+  margin: 8px 0;
+  padding: 6px 10px;
+  background: #ffe8b5;
+  border: 1px solid #f3c15c;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #6e5200;
+}
+
+.image-upload-btn input {
+  display: none;
+}
+
+.image-preview-wrapper {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.image-preview {
+  width: 80px;
+  height: 80px;
+  border-radius: 6px;
+  object-fit: cover;
+  border: 1px solid #e2c677;
+}
+
+/* ===============================
+   📌 상세 모달
+================================ */
+
+/* 애니메이션 정의 */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* 대댓글 태그 스타일 */
+.mention-tag {
+  color: #3b82f6; /* 밝은 파란색 */
+  font-weight: 600;
+  margin-right: 4px;
+  background-color: #eff6ff;
+  padding: 2px 6px;
+  border-radius: 4px;
+  display: inline-block; /* 줄바꿈 방지 */
+}
+
+/* 기존 스타일 유지 + 개선 */
+.detail-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(4px); /* ⭐ 배경 블러 효과 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+  animation: fadeIn 0.2s ease-out; /* ⭐ 등장 애니메이션 */
+}
+
+.detail-modal {
+  width: 90%;
+  max-width: 600px;
+  max-height: 85vh; /* 상하 여백 확보 */
+  background: var(--card-bg);
+  padding: 24px; /* 패딩 좀 더 넉넉하게 */
+  border-radius: 16px; /* 둥글기 증가 */
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1); /* ⭐ 부드러운 슬라이드 업 */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* ⭐ 커스텀 스크롤바 */
+.detail-modal::-webkit-scrollbar {
+  width: 8px;
+}
+.detail-modal::-webkit-scrollbar-track {
+  background: transparent;
+}
+.detail-modal::-webkit-scrollbar-thumb {
+  background: #e0e0e0;
+  border-radius: 4px;
+}
+.detail-modal::-webkit-scrollbar-thumb:hover {
+  background: #d0d0d0;
+}
+
+[data-theme="dark"] .detail-modal::-webkit-scrollbar-thumb {
+  background: #444;
+}
+[data-theme="dark"] .detail-modal::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+
+.detail-close {
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  background: rgba(0,0,0,0.05); /* 닫기 버튼 배경 */
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+.detail-close:hover {
+  background: rgba(0,0,0,0.1);
+  transform: rotate(90deg);
+}
+[data-theme="dark"] .detail-close {
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+}
+[data-theme="dark"] .detail-close:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+
+.detail-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(0,0,0,0.05); /* 헤더 구분선 */
+}
+[data-theme="dark"] .detail-header {
+  border-bottom-color: rgba(255,255,255,0.08);
+}
+
+
+.detail-profile {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 14px;
+  border: 2px solid rgba(0,0,0,0.05);
+}
+
+.detail-nickname {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.detail-content {
+  font-size: 1.05rem; /* 폰트 살짝 키움 */
+  line-height: 1.7; /* ⭐ 줄간격 넉넉하게 */
+  color: #333;
+  margin-bottom: 24px;
+}
+
+.detail-images img {
+  width: 100%;
+  border-radius: 12px;
+  margin-top: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+/* ===============================
+   📌 댓글 영역
+================================ */
+.comment-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-top: 32px;
+  margin-bottom: 16px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(0,0,0,0.06); /* 본문과 댓글 사이 구분선 */
+}
+[data-theme="dark"] .comment-title {
+  border-top-color: rgba(255,255,255,0.1);
+}
+
+
+.comment-box {
+  margin-top: 0;
+  margin-bottom: 24px;
+  display: flex;
+  gap: 10px;
+}
+
+.comment-box textarea {
+  flex: 1;
+  height: 48px; /* 기본 높이 줄임 (포커스시 늘어나거나 하면 좋지만 일단 심플하게) */
+  min-height: 48px;
+  resize: vertical;
+  padding: 12px;
+  background: #fdfdfd;
+  border-radius: 12px;
+  border: 1px solid #e0e0e0;
+  transition: all 0.2s;
+  font-size: 0.95rem;
+}
+.comment-box textarea:focus {
+  border-color: #f4bf3b;
+  box-shadow: 0 0 0 3px rgba(244, 191, 59, 0.2); /* ⭐ 포커스 링 */
+  outline: none;
+  background: #fff;
+}
+
+
+.comment-submit {
+  background: #f4bf3b;
+  color: #3b2f1d;
+  font-weight: 600;
+  border: none;
+  padding: 0 20px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.1s, background 0.2s;
+}
+.comment-submit:hover {
+  background: #facc15;
+}
+.comment-submit:active {
+  transform: scale(0.96);
+}
+
+
+.comment-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* 간격 조정 */
+  padding-bottom: 20px;
+}
+
+/* 댓글 카드 */
+.comment-card {
+  background: transparent; /* 카드 배경 제거하고 심플하게 (또는 유지) -> 유지하되 쉐도우 줄임 */
+  background: #fffcf4;
+  border: 1px solid #f0e6c9;
+  padding: 16px;
+  border-radius: 16px;
+  box-shadow: none; /* 플랫하게 */
+}
+
+.comment-item {
+  display: flex;
+  gap: 12px;
+}
+
+.comment-profile {
+  width: 42px;
+  height: 42px;
+}
+
+
+.comment-actions button {
+  background: transparent;
+  border: none;
+  padding: 4px 8px;
+  color: #888;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+.comment-actions button:hover {
+  background: rgba(0,0,0,0.04);
+  color: #333;
+}
+
+
+/* ===============================
+   📌 대댓글(reply) 카드
+================================ */
+.reply-card {
+  background: #fdfaf4; /* 회색 대신 아주 연한 웜톤 배경으로 변경하여 따뜻하게 */
+  border: 1px solid rgba(0,0,0,0.05); /* 미세한 테두리 추가 */
+  padding: 24px; /* 패딩 대폭 확대 (18px -> 24px) */
+  border-radius: 16px;
+  margin-left: 0; /* 들여쓰기 제거! (모바일처럼 꽉 차게) */
+  margin-top: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.03); /* 아주 살짝 띄움 */
+
+  width: 100% !important; /* ⭐ 너비 강제 100% */
+  max-width: none !important; /* 혹시 모를 제한 해제 */
+  display: block !important;
+  box-sizing: border-box;
+  position: relative;
+}
+
+/* 대댓글임을 표시하는 장식 바 (왼쪽) */
+.reply-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 24px;
+  bottom: 24px;
+  width: 4px;
+  background: #e4c568; /* 포인트 컬러 */
+  border-radius: 0 4px 4px 0;
+}
+
+/* ..... */
+.comment-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* 닉네임과 날짜를 양 끝으로 배치하여 구분감 줌 */
+  margin-bottom: 6px; /* 본문과의 간격 추가 */
+}
+
+.comment-info-row {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* 닉네임 주변 요소 간격 */
+}
+
+/* 닉네임 스타일 강화 */
+.comment-nickname {
+  font-weight: 700;
+  font-size: 1rem;
+  color: #1a1a1a;
+}
+
+/* 날짜는 작고 흐리게 */
+.comment-date {
+  font-size: 0.8rem;
+  color: #999;
+  font-weight: 400;
+}
+
+/* 본문 스타일 */
+.comment-content {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #333;
+  white-space: pre-wrap; /* pre-line보다 pre-wrap이 안전할 수 있음 */
+  margin-bottom: 8px;
+}
+
+.reply-item {
+  display: flex; /* Flexbox 활성화 */
+  gap: 16px; /* 이미지와 본문 사이 간격 */
+  align-items: flex-start;
+  width: 100%; /* 부모 꽉 채우기 */
+}
+
+/* ⭐ 누락되었던 reply-body 복구 + 확장성 부여 */
+.reply-body, .comment-body {
+  flex: 1; /* 남은 공간 모두 차지 (Space Between 작동 위해 필수) */
+  min-width: 0; /* Flex item 내 text-overflow 방지 */
+  display: flex;
+  flex-direction: column;
+}
+
+.reply-profile {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%; /* ⭐ 원형 */
+  object-fit: cover;
+  border: 1px solid rgba(0,0,0,0.05);
+  flex-shrink: 0; /* 이미지 찌그러짐 방지 */
+}
+
+/* ===== reply-input-box (튀어나감 방지 버전) ===== */
+.reply-input-box.inside {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.reply-input-box.inside textarea {
+  flex: 1;
+  height: 90px; /* 답글 입력창은 좀 더 크게 */
+  resize: none;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  background: #fff;
+  transition: border 0.2s;
+}
+.reply-input-box.inside textarea:focus {
+  outline: none;
+  border-color: #f4bf3b;
+}
+
+.reply-input-box.inside .reply-submit {
+  width: 80px;
+  background: #f4bf3b;
+  color: #3b2f1d;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* ==========================================
+   📱 모바일에서 대댓글은 들여쓰기 없이 100% 고정
+========================================== */
+@media (max-width: 768px) {
+  /* 대댓글 카드 자체 */
+  .reply-card {
+    margin-left: 0 !important;
+    width: 100% !important;
+    border-radius: 12px; /* 모바일에서 더 깔끔하게 */
+  }
+
+  /* 대댓글 컨텐츠 아이템 */
+  .reply-item {
+    padding-left: 0 !important;
+    width: 100% !important;
+  }
+
+  /* 대댓글 프로필 이미지 */
+  .reply-profile {
+    width: 38px !important;
+    height: 38px !important;
+  }
+
+  /* 대댓글 입력창 */
+  .reply-input-box {
+    width: 100% !important;
+    margin-left: 0 !important;
+    flex-wrap: wrap;
+  }
+
+  .reply-input-box textarea {
+    width: 100% !important;
+  }
+
+  .reply-submit {
+    width: 100% !important;
+    margin-top: 6px;
+    height: 48px;
+  }
+}
+
+/* ============================================
+   🌙 다크 모드 — 게시판 전체
+============================================ */
+[data-theme="dark"] .post-card,
+[data-theme="dark"] .comment-card,
+[data-theme="dark"] .reply-card,
+[data-theme="dark"] .detail-modal,
+[data-theme="dark"] .modal {
+  background: #1f1f1f !important;
+  border-color: rgba(255, 208, 99, 0.4) !important;
+  color: #eee !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.55) !important;
+}
+
+/* 제목/내용 */
+[data-theme="dark"] .post-content,
+[data-theme="dark"] .detail-content,
+[data-theme="dark"] .comment-content {
+  color: #e8e0c9 !important;
+}
+
+/* 닉네임 */
+[data-theme="dark"] .post-nickname,
+[data-theme="dark"] .detail-nickname,
+[data-theme="dark"] .comment-nickname {
+  color: #f6d27a !important; /* 스케줄러와 동일한 금빛 */
+}
+
+/* 날짜 */
+[data-theme="dark"] .post-date,
+[data-theme="dark"] .comment-date,
+[data-theme="dark"] .detail-date {
+  color: #b8a989 !important;
+}
+
+/* 카테고리 */
+[data-theme="dark"] .post-category {
+  color: #d7c48f !important;
+}
+
+/* 구분 점 (·) */
+[data-theme="dark"] .post-dot {
+  color: #8d7a4a !important;
+}
+
+/* 카테고리 선택 바 */
+[data-theme="dark"] .category-bar button {
+  background: #2a2a2a !important;
+  border-color: #fbc02d !important;
+  color: #f0e6c9 !important;
+}
+
+[data-theme="dark"] .category-bar button.active {
+  background: #fbc02d !important;
+  color: #3b2a10 !important;
+}
+
+/* 글쓰기 버튼 */
+[data-theme="dark"] .board-controls button {
+  background: #2d2d2d !important;
+  color: #f6d27a !important;
+  border: 1px solid #f6d27a !important;
+}
+[data-theme="dark"] .board-controls button:hover {
+  background: #3b3b3b !important;
+}
+
+/* 이미지 */
+[data-theme="dark"] .post-img,
+[data-theme="dark"] .detail-img {
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.6) !important;
+}
+
+/* 댓글 입력창 */
+[data-theme="dark"] .comment-box textarea,
+[data-theme="dark"] .reply-input-box textarea {
+  background: #2a2a2a !important;
+  border: 1px solid #6b5623 !important;
+  color: #f0e6c9 !important;
+}
+
+/* 댓글 작성 버튼 */
+[data-theme="dark"] .comment-submit,
+[data-theme="dark"] .reply-submit {
+  background: #c9a03f !important;
+  color: #1c1508 !important;
+}
+
+[data-theme="dark"] .comment-submit:hover,
+[data-theme="dark"] .reply-submit:hover {
+  background: #e8be4d !important;
+}
+
+/* 댓글 카드 */
+[data-theme="dark"] .comment-card {
+  background: #1f1f1f !important;
+  border-color: #6b5623 !important;
+}
+
+/* 대댓글 */
+[data-theme="dark"] .reply-card {
+  background: #262015 !important;
+  border-color: #7a642b !important;
+}
+
+/* 댓글 액션 버튼 */
+[data-theme="dark"] .comment-actions button {
+  background: #2d2d2d !important;
+  border-color: #8a7845 !important;
+  color: #d6c89c !important;
+}
+
+[data-theme="dark"] .comment-actions button:hover {
+  background: #3a321c !important;
+}
+
+/* 상세 팝업 닫기 버튼 */
+[data-theme="dark"] .detail-close {
+  color: #f6d27a !important;
+}
+
+/* 모달 입력 */
+[data-theme="dark"] .title-input,
+[data-theme="dark"] .content-input {
+  background: #2d2d2d !important;
+  border-color: #8a6f20 !important;
+  color: #f6eecb !important;
+}
+
+[data-theme="dark"] .modal-buttons button {
+  background: #c9a03f !important;
+  color: #1f1606 !important;
+}
+
+[data-theme="dark"] .modal-buttons button:hover {
+  background: #e3bb56 !important;
+}
+
+/* 업로드 버튼 */
+[data-theme="dark"] .image-upload-btn {
+  background: #3a301a !important;
+  border-color: #c5a74c !important;
+  color: #f6d27a !important;
+}
+
+/* 댓글/게시글 목록 텍스트 */
+[data-theme="dark"] .meta-item {
+  color: #cebb86 !important;
+}

@@ -1,0 +1,139 @@
+.inven-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.inven-modal {
+  width: min(700px, 90vw);
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 0 25px rgba(0,0,0,0.3);
+
+  /* 🔥 헤더 + 리스트 구조로 바꿈 */
+  display: flex;
+  flex-direction: column;
+  max-height: 80vh;
+  overflow: hidden; /* 내부 스크롤만 허용 */
+}
+
+/* 🔥 상단 고정 헤더 */
+.inven-modal-header {
+  position: sticky;
+  top: 0;
+  background: #fff;
+  padding: 16px 18px;
+  border-bottom: 1px solid #eee;
+  z-index: 10;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.close-btn {
+  background: #ddd;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* 🔥 리스트 부분만 스크롤 */
+.result-list {
+  padding: 16px 18px;
+  overflow-y: auto;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.result-item {
+  padding: 12px;
+  border-radius: 8px;
+  background: #f9f9f9;
+  text-decoration: none;
+  color: #222;
+  transition: background 0.2s;
+}
+
+.result-item:hover {
+  background: #ececec;
+}
+
+.result-item .meta {
+  color: #666;
+  font-size: 0.9rem;
+  margin-top: 4px;
+}
+
+.search-term {
+  color: #5a78ff;
+  font-weight: 700;
+  text-shadow: 0 0 4px rgba(90, 120, 255, 0.4);
+}
+
+/* ============================================
+   🌙 다크 모드 — 사사게 모달 전체
+============================================ */
+[data-theme="dark"] .inven-modal {
+  background: #1f1f1f !important;
+  border: 1px solid rgba(255, 208, 99, 0.35) !important;
+  box-shadow:
+    0 8px 26px rgba(0, 0, 0, 0.65),
+    0 0 14px rgba(251, 192, 45, 0.25) !important;
+}
+
+/* 헤더 */
+[data-theme="dark"] .inven-modal-header {
+  background: #1f1f1f !important;
+  border-bottom: 1px solid rgba(255, 208, 99, 0.25) !important;
+}
+
+[data-theme="dark"] .inven-modal-header h3 {
+  color: #f6d27a !important;
+}
+
+[data-theme="dark"] .search-term {
+  color: #ffd56b !important;
+  text-shadow: 0 0 8px rgba(251, 192, 45, 0.25) !important;
+}
+
+/* 닫기 버튼 */
+[data-theme="dark"] .close-btn {
+  background: #3b3b3b !important;
+  color: #f6d27a !important;
+  border: 1px solid #8a6f20 !important;
+}
+
+[data-theme="dark"] .close-btn:hover {
+  background: #4a4a4a !important;
+}
+
+/* 리스트 영역 */
+[data-theme="dark"] .result-list {
+  background: #1f1f1f !important;
+}
+
+/* 각 게시물 */
+[data-theme="dark"] .result-item {
+  background: #2a2a2a !important;
+  color: #f0e6c9 !important;
+  border: 1px solid rgba(255, 208, 99, 0.2) !important;
+}
+
+[data-theme="dark"] .result-item:hover {
+  background: #343434 !important;
+  border-color: rgba(255, 208, 99, 0.35) !important;
+}
+
+/* 메타 정보 */
+[data-theme="dark"] .result-item .meta {
+  color: #b8a989 !important;
+}

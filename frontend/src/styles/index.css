@@ -1,0 +1,243 @@
+/* ===============================
+   🟢 메인 페이지 전용 스타일
+================================= */
+
+/* 메인 콘텐츠 (넓게 확장) */
+.main-content {
+    max-width: 1100px; /* PC 최적화 */
+    margin: 40px auto 80px;
+    padding: 0 24px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+/* ===============================
+   🧱 네비게이션 블록 영역
+================================= */
+.sub-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+}
+
+/* 공통 블록 스타일 */
+.block {
+    background: #ffffff;
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 16px;
+    padding: 2rem 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* 🧱 블록 Hover 효과 */
+.block:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+    border-color: #fbc02d; /* 포인트 컬러 */
+}
+
+/* 다크모드 블록 */
+[data-theme="dark"] .block {
+    background: #1f1f1f;
+    border-color: rgba(255,255,255,0.08);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+[data-theme="dark"] .block:hover {
+    box-shadow: 0 12px 28px rgba(0,0,0,0.5), 0 0 12px rgba(251, 192, 45, 0.15);
+}
+
+.block h2 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin: 0;
+    color: #333;
+    z-index: 1;
+}
+
+[data-theme="dark"] .block h2 { color: #eee; }
+
+/* 📅 스케줄러 (Hero 섹션 강조) */
+.block.scheduler {
+    grid-column: span 4; /* 한 줄 꽉 채우기 */
+    background: linear-gradient(135deg, #fbc02d, #ffa000);
+    color: #fff;
+    padding: 3rem;
+    border: none;
+    margin-bottom: 0; /* sub-grid와 통합됨 (별도 섹션 아님) */
+}
+
+.block.scheduler h2 {
+    color: #fff !important;
+    font-size: 2rem;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.block.scheduler:hover {
+    transform: scale(1.02);
+    box-shadow: 0 12px 30px rgba(255, 160, 0, 0.35);
+}
+
+/* 반응형 (테블릿/모바일) */
+@media (max-width: 900px) {
+    .sub-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .block.scheduler {
+        grid-column: span 2;
+        padding: 2.5rem;
+    }
+}
+
+@media (max-width: 500px) {
+    .block.scheduler h2 { font-size: 1.6rem; }
+}
+
+
+/* ===============================
+   ⏳ 타이머 섹션
+================================= */
+.timer-section {
+    margin-top: 2rem;
+    text-align: left;
+}
+
+.timer-section h3 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #444;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.timer-section h3::before {
+    content: "⏰";
+}
+
+[data-theme="dark"] .timer-section h3 { color: #ddd; }
+
+.timer-grid {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: center; /* 카드 중앙 정렬 */
+}
+
+/* 타이머/섬 카드 공통 */
+.timer-card,
+.island-card {
+    flex: 1;
+    min-width: 280px;
+    max-width: 340px;
+    background: #ffffff;
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 18px;
+    padding: 24px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.2s;
+}
+
+.timer-card:hover, .island-card:hover {
+    transform: translateY(-4px);
+}
+
+[data-theme="dark"] .timer-card,
+[data-theme="dark"] .island-card {
+    background: #242424;
+    border-color: rgba(255,255,255,0.08);
+}
+
+.timer-card h4, .island-name {
+    font-size: 1.3rem;
+    color: #444;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+[data-theme="dark"] .timer-card h4, 
+[data-theme="dark"] .island-name { color: #fbc02d; }
+
+
+/* 타이머 숫자 */
+.timer, .island-timer strong {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #d84315; /* 강조색 */
+    margin-top: 0.5rem;
+    font-variant-numeric: tabular-nums; /* 숫자 너비 고정 */
+}
+
+[data-theme="dark"] .timer,
+[data-theme="dark"] .island-timer strong { color: #ffab91; }
+
+
+/* 섬 보상 리스트 */
+.island-rewards ul {
+    text-align: left;
+    background: rgba(0,0,0,0.03);
+    padding: 12px 12px 12px 24px;
+    border-radius: 8px;
+    margin: 10px 0;
+}
+[data-theme="dark"] .island-rewards ul { background: rgba(255,255,255,0.05); }
+
+.island-rewards li {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 2px;
+}
+[data-theme="dark"] .island-rewards li { color: #bbb; }
+
+
+/* ===============================
+   🧭 노션 사이드박스 (위치 조정)
+================================= */
+.notion-sidebox {
+    position: fixed;
+    bottom: 30px; /* 상단 중간보다는 우하단이 덜 거슬림 */
+    right: 30px;
+    transform: none;
+    background: #fbc02d;
+    color: #333;
+    border: none;
+    border-radius: 50px; /* 둥근 버튼 형태 */
+    padding: 12px 20px;
+    box-shadow: 0 4px 14px rgba(251, 192, 45, 0.4);
+    font-weight: 700;
+    z-index: 1000;
+    transition: all 0.25s ease;
+}
+
+.notion-sidebox:hover {
+    transform: scale(1.08) translateY(-2px);
+    background: #ffa000;
+    box-shadow: 0 6px 20px rgba(255, 160, 0, 0.5);
+    color: #fff;
+}
+
+/* 이전 css의 nav-arrow 스타일 유지 */
+.nav-arrow {
+    font-size: 1.5rem;
+    color: #888;
+    cursor: pointer;
+    margin: 0 10px;
+    padding: 5px;
+}
+.nav-arrow:hover { color: #fbc02d; transform: scale(1.2); }
+

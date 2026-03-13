@@ -1,0 +1,128 @@
+/* ===============================
+   📄 레이드 페이지 기본 레이아웃
+================================= */
+
+.page-container {
+    padding: 2rem;
+}
+
+.page-desc {
+    color: var(--block-p);
+    text-align: center;
+    margin-bottom: 1.6rem;
+    font-size: 1rem;
+}
+
+/* ===============================
+   🟡 카드 그리드
+================================= */
+
+.raid-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.8rem;
+    margin-top: 1.8rem;
+}
+
+/* ===============================
+   ⚔️ 레이드 카드
+================================= */
+
+.raid-card {
+    background: var(--raid-card-bg);
+    border: 2px solid var(--raid-card-border);
+    border-radius: 18px;
+    padding: 1.5rem;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+    color: var(--text-color);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border 0.25s ease;
+}
+
+.raid-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 24px rgba(0,0,0,0.20);
+    border-color: var(--raid-title-color);
+}
+
+/* 제목 */
+.raid-card h3 {
+    text-align: center;
+    margin-bottom: 1rem;
+    font-size: 1.45rem;
+    font-weight: 700;
+    color: var(--raid-title-color);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.15);
+}
+
+/* ===============================
+   🟥 NORMAL/HARD 구역
+================================= */
+
+.difficulty-block {
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border-radius: 12px;
+    background: var(--raid-section-bg);
+    border: 1.5px solid var(--raid-section-border);
+}
+
+.difficulty-block h4 {
+    margin: 0 0 0.6rem 0;
+    font-size: 1.05rem;
+    font-weight: bold;
+    color: var(--text-color);
+}
+
+/* 리스트 */
+.difficulty-block ul {
+    margin: 0;
+    padding-left: 0.5rem;
+    list-style: none;
+}
+
+.difficulty-block li {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.35rem;
+    font-size: 0.95rem;
+    color: var(--text-color);
+}
+
+/* ===============================
+   🪙 골드 텍스트
+================================= */
+
+.gold {
+    color: var(--gold-color);
+    font-weight: 700;
+    text-shadow: 0 0 6px var(--gold-shadow);
+}
+
+/* ===============================
+   🌙 라이트 / 다크모드 전용 변수
+   (※ 기존 공용 CSS의 data-theme 시스템에 연결됨)
+================================= */
+
+:root {
+    --raid-card-bg: #fff8e6;
+    --raid-card-border: #f3c260;
+    --raid-title-color: #b88700;
+
+    --raid-section-bg: #fff3d4;
+    --raid-section-border: #e8b446;
+
+    --gold-color: #d18b00;
+    --gold-shadow: rgba(255, 187, 0, 0.35);
+}
+
+[data-theme="dark"] {
+    --raid-card-bg: #1f1f1f;
+    --raid-card-border: #3b3b3b;
+    --raid-title-color: #ffd964;
+
+    --raid-section-bg: #2a2a2a;
+    --raid-section-border: #444;
+
+    --gold-color: #ffd964;
+    --gold-shadow: rgba(255, 215, 0, 0.25);
+}

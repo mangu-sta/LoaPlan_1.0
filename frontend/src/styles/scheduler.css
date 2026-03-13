@@ -1,0 +1,509 @@
+/* ===============================
+   🎴 캐릭터 카드 영역
+================================= */
+.progress-area {
+  display: flex;
+  flex-wrap: wrap;              /* ✅ 가로로 배치 + 자동 줄바꿈 */
+  gap: 1.8rem;                  /* 카드 간 간격 */
+  justify-content: center;      /* ✅ 가운데 정렬 */
+  margin-top: 2rem;
+  padding: 0 1rem;
+}
+
+/* ===============================
+   🧩 캐릭터 카드 기본
+================================= */
+
+.character-card {
+  width: 260px;                 /* ✅ 카드 크기 고정 */
+  height: 420px;
+  background: #1f1f1f;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+/* 🌙 다크모드: 블랙+옐로우 포인트 */
+[data-theme="dark"] .character-card {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow:
+    0 4px 10px rgba(0, 0, 0, 0.4),
+    0 0 8px rgba(251, 192, 45, 0.22);
+  animation: cardGlowPulse 4.5s ease-in-out infinite; /* 💫 느린 호흡 */
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.25s ease;
+}
+
+/* 🌙 다크모드 hover: 옐로우 강조 */
+[data-theme="dark"] .character-card:hover {
+  border-color: #fbc02d;
+  box-shadow:
+    0 6px 16px rgba(0, 0, 0, 0.55),
+    0 0 18px rgba(251, 192, 45, 0.45),
+    0 0 30px rgba(251, 192, 45, 0.25); /* 💫 금빛이 점점 퍼지는 느낌 */
+  animation: none;
+  transform: translateY(-6px); /* 살짝 떠오르게 */
+  transition:
+    box-shadow 0.45s ease-out,
+    border-color 0.35s ease-out,
+    transform 0.35s ease-out; /* 💨 hover 시 서서히 확산 */
+}
+
+
+
+
+
+
+
+.character-card:hover {
+  border-color: rgba(255, 255, 255, 0.2); 
+  transform: translateY(-5px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.45);
+}
+
+
+/* ===============================
+   🖼️ 캐릭터 이미지 영역
+================================= */
+.char-image-wrap {
+  position: relative;
+  width: 100%;
+  height: 75%;
+  overflow: hidden;
+}
+
+.char-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;  /* ✅ 아래쪽만 잘리도록 */
+  display: block;
+}
+/* 위에서 아래로 투명해지는 그라데이션 */
+.char-gradient-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60%;
+  background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.85));
+  pointer-events: none;
+}
+
+/* ===============================
+   🧾 캐릭터 정보 영역
+================================= */
+.char-info {
+  position: relative;
+  padding: 1rem;
+  color: #eee;
+  text-align: center;
+  background: #1f1f1f;
+  font-family: "Pretendard", sans-serif;
+}
+
+.char-name {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 0.3rem;
+}
+
+.char-job {
+  font-size: 1rem;
+  color: #dcdcdc;
+  margin-bottom: 0.2rem;
+}
+
+.char-server {
+  font-size: 0.9rem;
+  color: #bcbcbc;
+  margin-bottom: 0.3rem;
+}
+
+.char-item {
+  font-size: 0.95rem;
+  color: #fbc02d;
+  font-weight: 600;
+}
+
+/* ===============================
+   📊 진행률 바 (임시)
+================================= */
+.progress-bar {
+  width: 90%;
+  height: 8px;
+  background: #444;
+  border-radius: 4px;
+  margin: 10px auto 0 auto;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #fbc02d, #ffa726);
+  width: 50%; /* 임시 값 */
+  border-radius: 4px 0 0 4px;
+}
+
+.progress-text {
+  margin-top: 6px;
+  font-size: 0.8rem;
+  color: #fbc02d;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* ===============================
+   📱 반응형
+================================= */
+@media (max-width: 1200px) {
+  .character-card { width: 240px; }
+}
+
+@media (max-width: 768px) {
+  .character-card { width: 220px; }
+}
+
+@media (max-width: 480px) {
+  .character-card { width: 100%; }
+}
+
+
+
+
+
+.auction-box {
+  margin-top: 2rem;
+  border: 2px solid #f9c94e;
+  padding: 1rem;
+  border-radius: 8px;
+  display: inline-block;
+}
+
+
+
+/* ===============================
+   💰 경매 계산기 (로아 스타일)
+================================= */
+.auction-box {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: #fff8e1;
+  border: 2px solid #b8955b;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.auction-box h3 {
+  color: #5b3e1f;
+  margin-bottom: 1rem;
+}
+
+.auction-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.input-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.input-row input[type="number"] {
+  padding: 0.5rem;
+  border: 1px solid #bca47c;
+  border-radius: 6px;
+  flex: 1;
+}
+
+.reset-btn, .calc-btn {
+  background: #7a5b43;
+  color: white;
+  border: none;
+  padding: 0.5rem 0.8rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.calc-btn:hover {
+  background: #5a3e2d;
+}
+
+.auction-results {
+  background: #faf4e3;
+  border: 1px solid #d6b97a;
+  border-radius: 10px;
+  padding: 1rem;
+  margin-top: 1.5rem;
+}
+
+.auction-results h4 {
+  margin-top: 1rem;
+  color: #4a3625;
+}
+
+.auction-results p {
+  margin: 0.2rem 0;
+  font-size: 0.95rem;
+}
+
+/* 🔵 팝업 오버레이 */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+/* 🔵 팝업 본체 */
+.modal {
+  background: #fff8e1;
+  color: #222;
+  border-radius: 12px;
+  padding: 2rem;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  position: relative;
+  animation: fadein 0.25s ease;
+}
+
+/* 닫기 버튼 */
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+/* 간단한 fade-in 효과 */
+@keyframes fadein {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+/* ===============================
+   🌙 다크모드 — 금빛 윤곽 "숨쉬기" 효과
+================================= */
+@keyframes cardGlowPulse {
+  0% {
+    box-shadow:
+      0 4px 10px rgba(0, 0, 0, 0.4),
+      0 0 7px rgba(251, 192, 45, 0.20);
+  }
+  50% {
+    box-shadow:
+      0 4px 10px rgba(0, 0, 0, 0.4),
+      0 0 10px rgba(251, 192, 45, 0.27); /* 💛 미세하게 밝아짐 */
+  }
+  100% {
+    box-shadow:
+      0 4px 10px rgba(0, 0, 0, 0.4),
+      0 0 7px rgba(251, 192, 45, 0.20);
+  }
+}
+
+/* ⭐ 라이트 모드에서도 캐릭터 이름 색 고정 */
+[data-theme="light"] .character-card .char-name {
+  color: #f6d27a !important;
+}
+
+/* ⭐ 직업/서버도 가독성 향상 */
+/* 
+[data-theme="light"] .character-card .char-job,
+[data-theme="light"] .character-card .char-server {
+  color: #5a4b2b !important;
+} 
+*/
+
+/* ===============================
+   🗑️ 삭제 모드 아이콘 스타일
+================================= */
+.delete-icon-overlay {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 32px;
+  height: 32px;
+  background: rgba(0, 0, 0, 0.65);
+  border: 2px solid #ff5252;
+  border-radius: 50%;
+  color: #ff5252;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(2px);
+}
+
+.delete-icon-overlay:hover {
+  background: #ff5252;
+  color: white;
+  transform: scale(1.15);
+  box-shadow: 0 0 12px rgba(255, 82, 82, 0.6);
+}
+
+.delete-mode-active {
+  background-color: #ff5252 !important;
+  color: white !important;
+  border: 1px solid #ff1744 !important;
+  font-weight: bold;
+  animation: pulseButton 1.5s infinite;
+}
+
+@keyframes pulseButton {
+  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 82, 82, 0.7); }
+  70% { transform: scale(1.05); box-shadow: 0 0 0 6px rgba(255, 82, 82, 0); }
+  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 82, 82, 0); }
+}
+
+/* ===============================
+   🔒 로그인 필요 안내
+================================= */
+.need-login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 60vh;
+  text-align: center;
+  color: #555;
+  font-size: 1.1rem;
+  background: rgba(0,0,0,0.02);
+  border-radius: 20px;
+  margin: 2rem auto;
+  max-width: 600px;
+  border: 2px dashed #ccc;
+  font-family: 'Pretendard', sans-serif;
+}
+
+/* 📊 글로벌 진행도 카드 */
+.global-progress-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.2rem 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+  border: 1px solid rgba(0,0,0,0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+[data-theme="dark"] .global-progress-card {
+  background: #1f1f1f;
+  border-color: rgba(255,255,255,0.08);
+}
+
+.global-progress-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.gp-label {
+  font-size: 0.95rem;
+  font-weight: 700;
+  width: 70px; /* 라벨 너비 고정 */
+  color: #555;
+}
+
+[data-theme="dark"] .gp-label { color: #ccc; }
+
+.gp-bar-bg {
+  flex: 1;
+  height: 14px;
+  background: #eee;
+  border-radius: 7px;
+  overflow: hidden;
+  position: relative;
+}
+
+[data-theme="dark"] .gp-bar-bg { background: #333; }
+
+.gp-bar-fill {
+  height: 100%;
+  border-radius: 7px;
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.gp-bar-fill.daily {
+  background: linear-gradient(90deg, #4facfe, #00f2fe);
+}
+
+.gp-bar-fill.weekly {
+  background: linear-gradient(90deg, #fbc02d, #fda085);
+}
+
+.gp-text {
+  font-size: 0.95rem;
+  font-weight: 800;
+  width: 45px;
+  text-align: right;
+  color: #444;
+}
+
+[data-theme="dark"] .gp-text { color: #fff; }
+
+.need-login::before {
+  content: "🔐";
+  font-size: 4rem;
+  margin-bottom: 1.5rem;
+  opacity: 0.8;
+}
+
+.need-login h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.need-login p {
+  margin: 0.5rem 0;
+}
+
+[data-theme="dark"] .need-login {
+  color: #ccc;
+  background: rgba(255,255,255,0.03);
+  border-color: #555;
+}
+
+[data-theme="dark"] .need-login h3 {
+  color: #fff;
+}

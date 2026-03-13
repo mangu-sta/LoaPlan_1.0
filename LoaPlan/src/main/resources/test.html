@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>모달 테스트</title>
+  <style>
+    /* ===== 모달 오버레이 ===== */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    /* ===== 모달 박스 ===== */
+    .modal {
+      background: #fff;
+      width: 70%;
+      max-width: 800px;
+      min-height: 60%;
+      border-radius: 10px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      overflow: hidden;
+      animation: fadeIn 0.4s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ===== 헤더 ===== */
+    .modal-header {
+      background: #f0b93f;
+      color: #fff;
+      padding: 1rem;
+      font-size: 1.3rem;
+      font-weight: bold;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* ===== 내용 ===== */
+    .modal-content {
+      padding: 1.5rem;
+      overflow-y: auto;
+      flex: 1;
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    /* ===== 닫기 버튼 ===== */
+    .close-btn {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    /* ===== 애니메이션 ===== */
+    @keyframes fadeIn {
+      from {opacity: 0; transform: scale(0.9);}
+      to {opacity: 1; transform: scale(1);}
+    }
+  </style>
+</head>
+<body>
+
+<h1>메인 페이지 내용</h1>
+<p>이 페이지는 테스트용입니다. 모달이 자동으로 열립니다.</p>
+
+<!-- ✅ 모달 구조 -->
+<div class="modal-overlay" id="historyModal">
+  <div class="modal">
+    <div class="modal-header">
+      🕓 업데이트 히스토리
+      <button class="close-btn" onclick="closeModal()">&times;</button>
+    </div>
+    <div class="modal-content">
+      <ul>
+        <li><strong>2025-11-06:</strong> 타이머 자동 갱신 기능 추가</li>
+        <li><strong>2025-11-05:</strong> 다크/라이트 모드 토글 개선</li>
+        <li><strong>2025-11-03:</strong> 모험섬 및 필드보스/카오스게이트 보상 정보 표시 추가</li>
+        <li><strong>2025-11-02:</strong> 캐릭터 검색 API 연동</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+  // 페이지 로드시 자동으로 모달 표시
+  window.addEventListener("load", () => {
+    const modal = document.getElementById("historyModal");
+    modal.style.display = "flex";
+  });
+
+  // 모달 닫기
+  function closeModal() {
+    const modal = document.getElementById("historyModal");
+    modal.style.display = "none";
+  }
+</script>
+
+</body>
+</html>
