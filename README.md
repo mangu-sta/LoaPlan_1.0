@@ -96,14 +96,10 @@ LoaPlan은 로스트아크 플레이 시 여러 캐릭터의 일정을 한눈에
 
 ## 🏗 시스템 아키텍처
 
-```text
-React Frontend
-→ Spring Boot Backend
-→ MariaDB
-→ External API (Lost Ark API / Google OAuth / Inven Crawling)
-```
+서비스는 React 기반 프론트엔드와 Spring Boot 백엔드로 구성되며,  
+MariaDB와 외부 API를 연동하는 구조로 설계했습니다.
 
-<!-- 추후 아키텍처 이미지 추가 예정 -->
+![시스템 아키텍처](./AT.png)
 
 ---
 
